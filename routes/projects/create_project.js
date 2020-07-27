@@ -30,6 +30,7 @@ module.exports = [
           name: name,
           private: data.private || false,
           published: data.published || false,
+          type: data.type,
           created_at: db.fn.now(),
           updated_at: db.fn.now()
         }).then(function (ret) {
