@@ -1,4 +1,5 @@
 const db = require('../../db');
+const authorizationUtils = require('../../authorization_utils');
 
 module.exports = [
   {
@@ -35,7 +36,7 @@ module.exports = [
 
       if (!req.auth.isAuthenticated) {
         return query.where('private', false).where('published', true).then(res);
-      } else if (roles.indexOf('edit') === -1) {
+      } else if (!authorizationUtils.isAuthorizedEditor(roles, 'domestic')) {
         return query.where('published', true).select('private').then(res);
       } else {
         return query.select('private', 'published').then(res);

@@ -1,6 +1,7 @@
 const Boom = require('boom');
 
 const db = require('../../db');
+const authorizationUtils = require('../../authorization_utils');
 
 module.exports = [
   {
@@ -22,10 +23,7 @@ module.exports = [
           }
 
           const roles = req.auth.credentials && req.auth.credentials.roles || [];
-          if (roles.indexOf('edit') > -1 || // edit access can see everything
-             (!ret[0].private && ret[0].published) || // public and published
-             (req.auth.isAuthenticated && ret[0].private && ret[0].published) // also show authorized, private, published
-           ) {
+          if (authorizationUtils.isAuthorizedReader(req.auth, ret[0])) {
             const response = ret[0];
             // secondary authentication check for removing disbursement data for non-logged in users
             if (!req.auth.isAuthenticated && response.data) {

@@ -1,6 +1,7 @@
 const Boom = require('boom');
 
 const db = require('../../db');
+const authorizationUtils = require('../../authorization_utils');
 
 module.exports = [
   {
@@ -13,8 +14,7 @@ module.exports = [
       const owner = req.auth.credentials.sub;
       const roles = req.auth.credentials.roles;
       const name = data && data.name;
-
-      if (roles.indexOf('edit') === -1) {
+      if (!authorizationUtils.isAuthorizedEditor(roles, data.type)) {
         return res(Boom.unauthorized('Not authorized to perform this action'));
       }
 
