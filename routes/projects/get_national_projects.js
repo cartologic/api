@@ -4,7 +4,7 @@ module.exports = [
   {
     /* Get all projects */
     method: 'GET',
-    path: '/projects/domestic',
+    path: '/projects/national',
     config: {
       auth: {
         mode: 'optional'
@@ -31,7 +31,7 @@ module.exports = [
           db.raw('data->\'local_manager\' as local_manager'),
           db.raw('data->\'local_manager_ar\' as local_manager_ar'),
           db.raw('data->\'status\' as status'))
-        .where('type','domestic');
+        .where('type','national');
 
       if (!req.auth.isAuthenticated) {
         return query.where('private', false).where('published', true).then(res);
