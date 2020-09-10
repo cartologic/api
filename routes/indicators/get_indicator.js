@@ -22,7 +22,7 @@ module.exports = [
           }
 
           const roles = req.auth.credentials && req.auth.credentials.roles || [];
-          if (roles.indexOf('edit') > -1 || // edit access can see everything
+          if (roles.indexOf('indicator editor') > -1 || // edit access can see everything
              (!ret[0].private && ret[0].published) || // public and published
              (req.auth.isAuthenticated && ret[0].private && ret[0].published) // also show authorized, private, published
            ) {

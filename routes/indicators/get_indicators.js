@@ -24,7 +24,7 @@ module.exports = [
 
       if (!req.auth.isAuthenticated) {
         return query.where('private', false).where('published', true).then(res);
-      } else if (roles.indexOf('edit') === -1) {
+      } else if (roles.indexOf('indicator editor') === -1) {
         return query.where('published', true).select('private').then(res);
       } else {
         return query.select('private', 'published').then(res);

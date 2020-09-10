@@ -12,7 +12,7 @@ module.exports = [
       const data = req.payload;
       const roles = req.auth.credentials.roles || [];
 
-      if (roles.indexOf('edit') === -1) {
+      if (roles.indexOf('indicator editor') === -1) {
         return res(Boom.unauthorized('Not authorized to perform this action'));
       }
       if (!data) {
