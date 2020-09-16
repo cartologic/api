@@ -2,6 +2,7 @@ const Boom = require('boom');
 
 const db = require('../../db');
 const authorizationUtils = require('../../authorization_utils');
+const utils = require("../../utils");
 
 module.exports = [
   {
@@ -18,6 +19,14 @@ module.exports = [
       }
       if (!data) {
         return res(Boom.badData('Bad data'));
+      }
+      if (data.type === 'national') {
+        if(data.reportLink) {
+            data.reportLink = utils.blobToFile(data.reportLink);
+        }
+        if(data.project_link) {
+            data.project_link = utils.blobToFile(data.project_link);
+        }
       }
 
       return db('projects')

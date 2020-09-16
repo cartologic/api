@@ -12,7 +12,22 @@ const server = new Hapi.Server({
 });
 
 server.connection({port: process.env.PORT});
-
+server.register(require('inert'));
+server.route([
+    {
+        config: {
+            auth: false
+        },
+        method: 'GET',
+        path: '/uploaded/{param*}',
+        handler: {
+            directory: {
+                path: './uploaded/',
+                redirectToSlash: true
+            }
+        }
+    }
+]);
 server.register(require('hapi-auth-jwt2'), function (err) {
   if (err) console.error(err);
   server.auth.strategy('jwt', 'jwt', {
