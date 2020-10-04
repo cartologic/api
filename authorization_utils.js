@@ -1,11 +1,14 @@
 module.exports = {
     INTERNATIONAL_EDITOR: 'international editor',
     NATIONAL_EDITOR: 'national editor',
+    INTERNATIONAL_REVIEWER: 'international reviewer',
+    NATIONAL_REVIEWER: 'national reviewer',
     ADMIN: 'admin',
 
     isAuthorizedEditor: function (roles, projectType) {
-        return roles.indexOf(this.ADMIN) !== -1 || (roles.indexOf(this.INTERNATIONAL_EDITOR) !== -1 && projectType === 'international') ||
-            ((roles.indexOf(this.NATIONAL_EDITOR) !== -1 && projectType === 'national'));
+        return roles.indexOf(this.ADMIN) !== -1 ||
+            ((roles.indexOf(this.INTERNATIONAL_EDITOR) !== -1 || roles.indexOf(this.INTERNATIONAL_REVIEWER) !== -1) && projectType === 'international') ||
+            ((roles.indexOf(this.NATIONAL_EDITOR) !== -1 || roles.indexOf(this.NATIONAL_REVIEWER) !== -1) && projectType === 'national');
     },
     isAuthorizedReader: function (auth, project) {
         const roles = auth.credentials && auth.credentials.roles || [];
