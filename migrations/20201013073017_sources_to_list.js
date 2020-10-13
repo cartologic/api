@@ -7,11 +7,9 @@ exports.up = function(knex, Promise) {
                 if (indicator.data.sources && indicator.data.sources.length > 0) {
                     indicator.data.sources = indicator.data.sources.map(item => {
                         item = {
-                            'source': item,
-                            'source_ar': null
+                            'en': item,
+                            'ar': null
                         };
-                        delete item.source;
-                        delete item.source_ar;
                         return item;
                     });
                 }
@@ -29,5 +27,4 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  
 };
