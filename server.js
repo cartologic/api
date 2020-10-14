@@ -6,7 +6,8 @@ const server = new Hapi.Server({
       cors: {
         origin: ['*'],
         additionalHeaders: ['x-requested-with', 'accept-language']
-      }
+      },
+      payload: { maxBytes: 100485760, timeout: false }
     }
   }
 });
