@@ -27,6 +27,14 @@ module.exports = [
           if (!data) {
             return res(Boom.badData('Bad data'));
           }
+          if (data.type === 'national') {
+            if (data.reportFile) {
+              data.reportFile = utils.blobToFile(data.reportFile);
+            }
+            if (data.project_file) {
+              data.project_file = utils.blobToFile(data.project_file);
+            }
+          }
          
 
           return db('projects')
