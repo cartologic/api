@@ -22,14 +22,6 @@ module.exports = [
       if (!owner || !data || !name) {
         return res(Boom.badData('Missing Form Data'));
       }
-      if (data.type === 'national') {
-        if(data.reportLink) {
-            data.reportLink = utils.blobToFile(data.reportLink);
-        }
-        if(data.project_link) {
-            data.project_link = utils.blobToFile(data.project_link);
-        }
-      }
 
       return db('projects')
         .returning('id')
