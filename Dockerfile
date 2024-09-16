@@ -12,7 +12,6 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY yarn.lock ./
 # RUN npm install build-tools
-RUN npm install yarn@1.22.4
 RUN yarn install 
 
 # add app
